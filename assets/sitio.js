@@ -66,7 +66,8 @@
 
   /* Solo un video a la vez */
   document.addEventListener('play', function (e) {
-    document.querySelectorAll('video').forEach(function (o) { if (o !== e.target) o.pause(); });
+    if (e.target.hasAttribute && e.target.hasAttribute('data-ambiente')) return;
+    document.querySelectorAll('video:not([data-ambiente])').forEach(function (o) { if (o !== e.target) o.pause(); });
   }, true);
 
   /* Año del pie */
@@ -126,4 +127,17 @@
   }
   document.addEventListener('visibilitychange', function () { var m = activo(); if (document.hidden && m && m.pause) m.pause(); else reproducir(); });
   elegir('fakih');
+})();
+
+/* Videos de ambiente (sin sonido): corren solo mientras se ven y no detienen a los demás */
+(function () {
+  var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = document.querySelectorAll('video[data-ambiente]');
+  if (!vids.length || reducir || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); } else e.target.pause();
+    });
+  }, { threshold: 0.3 });
+  vids.forEach(function (v) { io.observe(v); });
 })();
