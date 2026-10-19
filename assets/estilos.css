@@ -484,3 +484,105 @@ p { margin: 0; max-width: 64ch; }
 
 /* el enlace "texto" no debe heredar la grilla del bloque de texto de la portada */
 .portada .acciones .boton.texto { display: inline-flex; gap: 10px; }
+
+/* ---------- Identidad de marca: azul del emblema y su familia, sello AMMEP en fotos y títulos ---------- */
+:root {
+  --tinta: #17304a;
+  --noche: #12263b;
+  --cielo: #dde8f2;
+  --cielo-2: #c6d8e8;
+  --acero: #7d99b4;
+  --hielo: #eef3f8;
+}
+h1, h2 { color: var(--tinta); }
+.filas h3 { color: var(--marino); }
+.estado { background: var(--cielo); color: var(--tinta); }
+.bloque.tinte { background: var(--hielo); }
+::selection { background: var(--cielo-2); color: var(--tinta); }
+
+/* franja de marca sobre el menú */
+.cabecera::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--tinta) 0 40%, var(--marino) 40% 70%, var(--acero) 70% 88%, var(--cielo-2) 88%); }
+
+/* antetítulo con el emblema: se repite en cada sección */
+.antetitulo, .bloque .cabeza::before, .lugares > .contenedor::before {
+  display: inline-flex; align-items: center; min-height: 26px; padding-left: 30px;
+  font: 600 12.5px/1 var(--texto); letter-spacing: .22em; text-transform: uppercase; color: var(--marino);
+  background: url("logo.png") left center / auto 24px no-repeat;
+}
+.bloque .cabeza::before { content: "AMMEP"; justify-self: start; }
+.antetitulo { margin: 0; }
+
+/* encabezado de páginas internas en azul, con el emblema de fondo */
+.titulo-pagina { position: relative; overflow: hidden; background: var(--tinta); color: var(--hueso); border-bottom: 0; isolation: isolate; }
+.titulo-pagina::after { content: ""; position: absolute; z-index: -1; right: -4%; top: 50%; width: min(46vw, 560px); aspect-ratio: 1; transform: translateY(-50%); background: url("logo-blanco.png") center / contain no-repeat; opacity: .07; }
+.titulo-pagina h1 { color: var(--hueso); }
+.titulo-pagina .lead { color: rgba(251, 251, 250, .8); }
+.titulo-pagina .ruta { color: rgba(251, 251, 250, .7); }
+.titulo-pagina .ruta a:hover { color: var(--hueso); }
+.titulo-pagina .indice a { color: rgba(251, 251, 250, .82); border-bottom-color: rgba(251, 251, 250, .18); }
+.titulo-pagina .indice a span:last-child { color: var(--cielo-2); }
+.titulo-pagina .indice a:hover { color: var(--hueso); }
+
+/* sello AMMEP en la esquina de las fotos y videos */
+.foto-v3::after, .banda-foto::after, .ficha-foto .imagen::after, .placa::after, .foto-bloque::after, .galeria .foto::after, .video:not(.sensible)::after {
+  content: "AMMEP"; position: absolute; z-index: 2; top: 14px; right: 14px; pointer-events: none;
+  padding: 7px 11px 7px 29px; border-radius: 99px;
+  font: 600 10.5px/1 var(--texto); letter-spacing: .2em; color: #fff;
+  background: url("logo-blanco.png") 10px 50% / auto 15px no-repeat, rgba(18, 38, 59, .55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.ficha-foto .imagen, .foto-bloque { position: relative; }
+.banda-foto::after { top: 22px; right: max(20px, calc((100vw - var(--ancho)) / 2 + 20px)); padding: 9px 14px 9px 36px; font-size: 12px; background-size: auto 19px, auto; background-position: 12px 50%, 0 0; }
+.foto-v3::after { top: auto; bottom: 18px; right: 18px; }
+
+/* Ciencia, docencia y ética: franja azul con tarjetas */
+.servicios { position: relative; overflow: hidden; isolation: isolate; background: var(--marino); color: var(--hueso); padding-block: clamp(64px, 8vw, 112px); }
+.servicios::after { content: ""; position: absolute; z-index: -1; left: -6%; bottom: -18%; width: min(40vw, 480px); aspect-ratio: 1; background: url("logo-blanco.png") center / contain no-repeat; opacity: .06; }
+.cabeza-servicios { display: grid; gap: 14px; justify-items: center; text-align: center; margin-bottom: clamp(36px, 5vw, 60px); }
+.cabeza-servicios h2 { color: var(--hueso); }
+.cabeza-servicios p:not(.antetitulo) { color: rgba(251, 251, 250, .8); font-size: 18px; }
+.servicios .antetitulo { color: var(--cielo-2); background-image: url("logo-blanco.png"); }
+.tarjetas-servicio { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.tarjetas-servicio li { display: grid; align-content: start; gap: 12px; padding: 28px 24px 30px; border-radius: 18px; background: var(--hielo); color: var(--grafito); }
+.tarjetas-servicio li:nth-child(2) { background: var(--cielo); }
+.tarjetas-servicio li:nth-child(3) { background: #fff; }
+.tarjetas-servicio li:nth-child(4) { background: var(--cielo-2); }
+.tarjetas-servicio .icono { width: 52px; height: 52px; border-radius: 50%; background: var(--tinta); display: grid; place-items: center; margin-bottom: 6px; }
+.tarjetas-servicio .icono svg { width: 26px; height: 26px; fill: none; stroke: var(--hueso); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tarjetas-servicio h3 { font: 500 25px/1.15 var(--display); color: var(--tinta); }
+.tarjetas-servicio p { color: var(--pizarra); font-size: 16px; }
+
+/* Dónde nos formamos: azul noche y fichas en la familia del azul */
+.lugares { background: var(--noche); position: relative; overflow: hidden; isolation: isolate; }
+.lugares::after { content: ""; position: absolute; z-index: -1; right: -5%; top: -6%; width: min(36vw, 440px); aspect-ratio: 1; background: url("logo-blanco.png") center / contain no-repeat; opacity: .05; }
+.lugares > .contenedor::before { content: "AMMEP"; color: var(--cielo-2); background-image: url("logo-blanco.png"); margin-bottom: 18px; }
+.ficha-foto .imagen { background: #1d3550; }
+.ficha-foto:nth-child(4n+1) figcaption { background: var(--cielo); color: var(--tinta); }
+.ficha-foto:nth-child(4n+2) figcaption { background: var(--marino); color: var(--hueso); }
+.ficha-foto:nth-child(4n+3) figcaption { background: var(--cielo-2); color: var(--tinta); }
+.ficha-foto:nth-child(4n+4) figcaption { background: var(--hueso); color: var(--tinta); }
+
+/* Docentes: celeste de la marca */
+.placa-campo { background: var(--cielo); }
+.placa { background: var(--tinta); }
+.celdas > :first-child { background: var(--tinta); }
+.celdas > :last-child { background: var(--cielo-2); color: var(--tinta); }
+.pestanas button[aria-selected="true"] { color: var(--tinta); }
+
+/* Llamado y pie con el emblema grande */
+.llamado { position: relative; overflow: hidden; isolation: isolate; background: var(--tinta); }
+.llamado::after { content: ""; position: absolute; z-index: -1; right: 4%; top: 50%; width: min(34vw, 380px); aspect-ratio: 1; transform: translateY(-50%); background: url("logo-blanco.png") center / contain no-repeat; opacity: .08; }
+.pie { background: var(--noche); }
+.pie .marca img { width: 52px; height: 60px; }
+
+@media (max-width: 960px) {
+  .tarjetas-servicio { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  .tarjetas-servicio { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .tarjetas-servicio li { padding: 22px 20px 24px; }
+  .foto-v3::after, .ficha-foto .imagen::after, .placa::after, .foto-bloque::after, .galeria .foto::after, .video:not(.sensible)::after { top: 10px; right: 10px; padding: 6px 9px 6px 25px; font-size: 9.5px; background-size: auto 13px, auto; background-position: 8px 50%, 0 0; }
+  .foto-v3::after { top: auto; bottom: 12px; }
+  .banda-foto::after { top: 14px; right: 14px; padding: 7px 11px 7px 29px; font-size: 10.5px; background-size: auto 15px, auto; background-position: 10px 50%, 0 0; }
+  .llamado::after { width: 70vw; right: -24%; opacity: .06; }
+}
